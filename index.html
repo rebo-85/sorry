@@ -3,453 +3,69 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>I'm Sorry</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Great+Vibes&display=swap" rel="stylesheet">
-  <meta name="theme-color" content="#ff9bb3" />
+  <title>Sorry</title>
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script>
-    (function() {
-      emailjs.init("XslZwIp-FmdcPCyJL"); 
-    })();
+    (function() { emailjs.init("XslZwIp-FmdcPCyJL"); })();
   </script>
   <style>
-    :root {
-      --bg-1: #fff9f2;
-      --bg-2: #ffe6ee;
-      --ink: #2a2a2a;
-      --ink-soft: #6b6b6b;
-      --accent: #ff7aa2;
-      --accent-2: #ffc3d6;
-      --ok: #6ede8a;
-      --notyet: #ffb84d;
+    body { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; background: #fff9f2; font-family: 'Poppins', sans-serif; }
+    .gif {
+      max-width: 340px;
+      border-radius: 16px;
+      box-shadow: 0 6px 24px #ffbcd6a0;
+      margin-bottom: 32px;
+      opacity: 0;
+      transform: translateY(30px) scale(0.98);
+      animation: fadeBounceIn 1.2s cubic-bezier(.23,1.12,.62,1.01) forwards;
     }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      color: var(--ink);
-      background: radial-gradient(1200px 800px at 80% -10%, var(--bg-2), transparent 60%),
-                  radial-gradient(900px 700px at 10% 0%, var(--bg-2), transparent 50%),
-                  linear-gradient(180deg, var(--bg-1), #ffffff);
-      overflow-x: hidden;
+    .sorry {
+      font-size: 2.2rem;
+      color: #a22f55;
+      text-align: center;
+      font-family: 'Great Vibes', cursive;
+      margin-bottom: 12px;
+      opacity: 0;
+      transform: translateY(20px) scale(0.98);
+      animation: fadeBounceIn 1.2s .3s cubic-bezier(.23,1.12,.62,1.01) forwards;
     }
-    .wrap {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 24px;
-      display: grid;
-      gap: 18px;
+    @keyframes fadeBounceIn {
+      0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+      }
+      60% {
+        opacity: 1;
+        transform: translateY(-8px) scale(1.03);
+      }
+      80% {
+        transform: translateY(2px) scale(0.99);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
-    header {
-      display: grid; gap: 8px; justify-items: center; text-align: center;
-    }
-    .brand {
-      display: inline-grid; place-items: center; gap: 8px;
-      padding: 12px 18px; border-radius: 18px;
-      background: rgba(255,255,255,.6); backdrop-filter: blur(6px);
-      box-shadow: 0 10px 30px rgba(255,122,162,.2);
-    }
-    .brand h1 {
-      margin: 0;
-      font-family: "Great Vibes", cursive;
-      font-weight: 400;
-      font-size: clamp(44px, 9vw, 80px);
-      letter-spacing: 0.5px;
-      color: var(--accent);
-      text-shadow: 0 2px 0 #fff;
-    }
-    .subtitle { margin: 0; color: var(--ink-soft); font-weight: 400; }
-
-    .card {
-      border-radius: 22px;
-      background: rgba(255,255,255,.8);
-      box-shadow: 0 12px 30px rgba(0,0,0,.06);
-      padding: clamp(16px, 3vw, 28px);
-    }
-
-    .grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
-    @media (min-width: 820px) {
-      .grid { grid-template-columns: 1.2fr .8fr; }
-    }
-
-    .type { font-size: clamp(18px, 2.4vw, 22px); line-height: 1.6; min-height: 3lh; }
-
-    .reason-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
-    .reason {
-      display: grid; grid-template-columns: 32px 1fr; align-items: center; gap: 10px;
-      padding: 10px 12px; border-radius: 14px; background: #fff; border: 1px solid #f7dbe6;
-    }
-    .reason span { font-size: 22px; }
-
-    .actions { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
-    .btn {
-      border: 0; border-radius: 999px; padding: 14px 18px; font-weight: 700; cursor: pointer;
-      transition: transform .08s ease, box-shadow .2s ease, opacity .2s ease;
-    }
-    .btn:active { transform: translateY(1px) scale(.99); }
-    .btn-ok { background: linear-gradient(180deg, var(--ok), #4bc36b); color: #fff; box-shadow: 0 10px 20px rgba(110,222,138,.35); }
-    .btn-notyet { background: linear-gradient(180deg, #ffd899, var(--notyet)); color: #5b3b00; box-shadow: 0 10px 20px rgba(255,184,77,.35); }
-
-    .chiprow { display: flex; gap: 10px; flex-wrap: wrap; }
-    .chip {
-      padding: 8px 12px; border-radius: 999px; background: #fff; border: 1px solid #ffd6e6; font-size: 14px; color: #a22f55;
-    }
-
-    .footer { text-align: center; color: var(--ink-soft); font-size: 13px; }
-
-    .modal-backdrop { position: fixed; inset: 0; display: none; place-items: center; background: rgba(0,0,0,.35); padding: 20px; }
-    .modal { max-width: 680px; width: 100%; border-radius: 22px; background: #fff; padding: 20px; box-shadow: 0 30px 80px rgba(0,0,0,.2); }
-    .modal header { justify-items: start; }
-
-    .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .gallery img { width: 100%; height: 120px; object-fit: cover; border-radius: 12px; }
-
-    .heartbg { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
-    .ticker { font-feature-settings: "tnum" 1; font-variant-numeric: tabular-nums; }
-
-    .tiny { font-size: 12px; color: var(--ink-soft); }
-    .center { text-align: center; }
-
-    input[type="checkbox"][disabled] {
-      appearance: none; 
-      background-color: #fff;
-      border: 2px solid #f7dbe6; 
-      width: 18px;
-      height: 18px;
-      border-radius: 4px; 
-      display: inline-block;
-      position: relative;
-      cursor: not-allowed;
-    }
-
-    input[type="checkbox"][disabled]::after {
-      content: '';
-      position: absolute;
-      top: 2px;
-      left: 6px;
-      width: 4px;
-      height: 8px;
-      border: solid #a22f55;
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg);
-    }
-
-    .image-modal-backdrop {
-      position: fixed;
-      inset: 0;
-      display: none;
-      place-items: center;
-      background: rgba(0, 0, 0, 0.8);
-      z-index: 1000;
-    }
-    .image-modal img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 12px;
-      display: block;
-      margin: 0 auto;
-    }
+    .dt { color: #555; font-size: 1rem; margin-top: 8px; }
   </style>
 </head>
 <body>
-  <canvas id="heartbg" class="heartbg"></canvas>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <h1 id="title">I'm Sorry</h1>
-        <p class="subtitle" id="subtitle">I messed up. I care about you so much.</p>
-      </div>
-    </header>
-
-    <section class="grid">
-      <div class="card">
-        <div class="gif-container" style="text-align: center; margin-top: 16px;">
-          <img src="https://media1.tenor.com/m/XaQZDKLMfLkAAAAC/milk-and-mocha-cute.gif" alt="Apology GIF" style="max-width: 100%; border-radius: 12px;">
-        </div>
-        <div id="typewriter" class="type"></div>
-        <div class="chiprow" id="chips"></div>
-        <p class="tiny center" id="since"></p>
-      </div>
-
-      <aside class="card">
-        <h3 style="margin-top:0">Reasons I'm sorry</h3>
-        <ul class="reason-list" id="reasons"></ul>
-        <div style="height:10px"></div>
-        <h3 style="margin:8px 0 6px">Little promises</h3>
-        <div id="promises" class="reason-list"></div>
-      </aside>
-    </section>
-
-    <section class="card">
-      <h3 style="margin-top:0">A gallery of happy moments</h3>
-      <p class="tiny">Not much but special 🥹</p>
-      <div class="gallery" id="gallery"></div>
-    </section>
-    <section>
-      <div class="actions">
-        <button class="btn btn-ok" id="btnForgive">Forgive me 💖</button>
-        <button class="btn btn-notyet" id="btnLater">Maybe later</button>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <p>Made with love<span class="tiny"> — and a bit of JavaScript and HTML.</span></p>
-    </footer>
-  </div>
-
-  <div class="modal-backdrop" id="modal">
-    <div class="modal">
-      <header>
-        <h2 style="margin:0" id="modalTitle">Thank you for hearing me out</h2>
-        <p id="modalMsg" class="subtitle" style="text-align:left"></p>
-      </header>
-      <div style="display:grid; gap:10px; margin-top:10px">
-        <textarea id="messageBox" placeholder="Write me a message if you want…" style="width:100%; min-height:120px; padding:12px; border-radius:12px; border:1px solid #eee; font-family:inherit"></textarea>
-        <div style="display:flex; gap:10px; justify-content:flex-end">
-          <button class="btn btn-notyet" id="btnClose">Close</button>
-          <button class="btn btn-ok" id="btnConfetti">Send ❤️</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="image-modal-backdrop" id="imageModal">
-    <div class="image-modal">
-      <img id="modalImage" src="" alt="Gallery Image" />
-    </div>
-  </div>
-
+  <img class="gif" src="sprite-animation.gif" alt="Sorry" />
+  <div class="sorry">I'm sorry.</div>
+  
   <script>
-    const $ = (q) => document.querySelector(q);
-    const $$ = (q) => Array.from(document.querySelectorAll(q));
-
-    const params = new URLSearchParams(location.search);
-    const state = {
-      to: params.get('name') || 'Moereen',
-      title: params.get('title') || "I'm Sorry",
-      intro: params.get('msg') || "I was insensitive.. and I'm truly sorry. You deserve someone who listens, learns, and shows up better.. and I still want to be that person for you.",
-      startDate: params.get('since') || '',
-      chips: (params.get('chips') || 'I miss your voice, I miss your smile, Can we talk?, Coffee on me, Movie?, One more chance').split(',').slice(0,8),
-      reasons: [
-        'I made you feel unheard',
-        'I reacted instead of understanding',
-        'I forgot what matters to you',
-        'I let pride speak for me',
-        'I didn\'t communicate clearly',
-        'I didn\'t make you feel safe',
-      ],
-      promises: [
-        'Listen fully before I answer',
-        'Ask what you need.. not assume',
-        'Own my mistakes without excuses',
-        'Give you space when you ask',
-        'Say what I feel.. kindly',
-      ],
-      gallery: [
-        params.get('img1') || 'https://res.cloudinary.com/dxeqv1ab0/image/upload/v1756635157/1_fdsjnv.jpg',
-        params.get('img2') || 'https://res.cloudinary.com/dxeqv1ab0/image/upload/v1756635157/6_cqo7vb.jpg',
-        params.get('img3') || 'https://res.cloudinary.com/dxeqv1ab0/image/upload/v1756635156/5_fndbiw.jpg',
-        params.get('img4') || 'https://res.cloudinary.com/dxeqv1ab0/image/upload/v1756635156/3_bmdr0w.jpg',
-        params.get('img5') || 'https://res.cloudinary.com/dxeqv1ab0/image/upload/v1756635156/4_aqyyhx.jpg',
-      ],
-    };
-
-    $('#title').textContent = `${state.title}, ${state.to}`;
-    $('#subtitle').textContent = 'Can I still make it right?';
-
-    const typeEl = $('#typewriter');
-    const type = async (text) => {
-      typeEl.textContent = '';
-      for (let i = 0; i < text.length; i++) {
-        typeEl.textContent += text[i];
-        await new Promise(r => setTimeout(r, 18));
+    window.addEventListener('DOMContentLoaded', function() {
+      let isLocal = ["localhost", "127.0.0.1"].includes(location.hostname) || location.hostname === "";
+      console.log(isLocal);
+      if (!isLocal) {
+        emailjs.send("service_2a8ngqg", "template_ghu0h7b", {
+          message: "Page viewed",
+          name: "Moereen",
+          response_type: "Viewed",
+          from_page: window.location.href
+        });
       }
-    };
-    type(state.intro);
-
-    const chiprow = $('#chips');
-    state.chips.forEach(t => {
-      const b = document.createElement('span');
-      b.className = 'chip';
-      b.textContent = t.trim();
-      chiprow.appendChild(b);
     });
-
-    const reasons = $('#reasons');
-    state.reasons.forEach((t,i) => {
-      const li = document.createElement('li');
-      li.className = 'reason';
-      li.innerHTML = `<span>${['💗','💬','🎧','🌱','🧭','🫶'][i%6]}</span><div>${t}</div>`;
-      reasons.appendChild(li);
-    });
-
-    const promises = $('#promises');
-    state.promises.forEach((t, i) => {
-      const div = document.createElement('label');
-      div.className = 'reason';
-      const id = `p${i}`;
-      div.innerHTML = `<input id="${id}" type="checkbox" checked disabled style="width:18px;height:18px"/> <div>${t}</div>`;
-      promises.appendChild(div);
-    });
-
-    const gal = $('#gallery');
-    state.gallery.forEach(src => {
-      const img = new Image();
-      img.src = src; img.loading = 'lazy';
-      gal.appendChild(img);
-    });
-
-    const sinceEl = $('#since');
-    if (state.startDate) {
-      const start = new Date(state.startDate);
-      if (!isNaN(start.getTime())) {
-        const tick = () => {
-          const now = new Date();
-          const diff = Math.max(0, now - start);
-          const days = Math.floor(diff / 86400000);
-          const hours = Math.floor((diff % 86400000) / 3600000);
-          const mins = Math.floor((diff % 3600000) / 60000);
-          const secs = Math.floor((diff % 60000) / 1000);
-          sinceEl.textContent = `Since ${start.toLocaleDateString()} • ${days}d ${hours}h ${mins}m ${secs}s`; 
-        };
-        setInterval(tick, 1000); tick();
-      }
-    }
-
-    const modal = $('#modal');
-    let response_type = ''; 
-
-    $('#btnForgive').onclick = () => {
-      response_type = 'Forgive';
-      openModal(`Thank you, ${state.to} 🥹`, 'When you are in mood, maybe we can plan something small together?');
-    };
-
-    $('#btnLater').onclick = () => {
-      response_type = 'Not Yet';
-      openModal('No rush', 'I understand.. I\'m here when you want to talk. Your feelings matter.');
-    };
-
-    $('#btnConfetti').onclick = () => {
-      let msg = $('#messageBox').value.trim();
-      
-      emailjs.send("service_2a8ngqg", "template_ghu0h7b", {
-        message: msg,
-        name: state.to,
-        response_type,
-        from_page: window.location.href
-      }).then(() => {
-        closeModal();
-        burstConfetti();
-      }).catch(err => {
-        console.error("EmailJS error:", err);
-        alert("Something went wrong while sending 😢");
-      });
-    };
-    const openModal = (title, msg) => {
-      $('#modalTitle').textContent = title;
-      $('#modalMsg').textContent = msg;
-      modal.style.display = 'grid';
-    };
-    const closeModal = () => { modal.style.display = 'none'; };
-    $('#btnClose').onclick = closeModal;
-
-    const heartCanvas = $('#heartbg');
-    const hctx = heartCanvas.getContext('2d');
-    const hearts = [];
-    const resize = () => {
-      heartCanvas.width = innerWidth; heartCanvas.height = innerHeight;
-    };
-    addEventListener('resize', resize); resize();
-    const rnd = (a,b)=>a+Math.random()*(b-a);
-    const heart = (x,y,s) => {
-      hctx.beginPath();
-      hctx.moveTo(x, y);
-      hctx.bezierCurveTo(x, y-3*s, x-5*s, y-3*s, x-5*s, y);
-      hctx.bezierCurveTo(x-5*s, y+3*s, x, y+5.5*s, x, y+8*s);
-      hctx.bezierCurveTo(x, y+5.5*s, x+5*s, y+3*s, x+5*s, y);
-      hctx.bezierCurveTo(x+5*s, y-3*s, x, y-3*s, x, y);
-      hctx.closePath();
-      hctx.fill();
-    };
-    for (let i=0;i<80;i++) {
-      hearts.push({
-        x: rnd(0, innerWidth),
-        y: rnd(0, innerHeight),
-        s: rnd(2, 5),
-        a: rnd(0.12, 0.28),
-        vx: rnd(-0.15, 0.15),
-        vy: rnd(0.1, 0.35)
-      });
-    }
-    const drawHearts = () => {
-      hctx.clearRect(0,0,heartCanvas.width, heartCanvas.height);
-      hearts.forEach(h => {
-        hctx.fillStyle = `rgba(255,122,162,${h.a})`;
-        heart(h.x, h.y, h.s);
-        h.x += h.vx; h.y += h.vy;
-        if (h.y > innerHeight + 12) { h.y = -10; h.x = rnd(0, innerWidth); }
-      });
-      requestAnimationFrame(drawHearts);
-    };
-    drawHearts();
-
-    const burstConfetti = () => {
-      const n = 160;
-      for (let i=0;i<n;i++) {
-        setTimeout(() => confetto(innerWidth/2, innerHeight*0.2), i*2);
-      }
-    };
-    const confetto = (x,y) => {
-      const d = document.createElement('div');
-      d.style.position = 'fixed';
-      d.style.left = x + 'px';
-      d.style.top = y + 'px';
-      d.style.width = d.style.height = Math.random() * 8 + 6 + 'px';
-      d.style.background = `hsl(${Math.floor(Math.random()*360)}, 90%, 70%)`;
-      d.style.transform = `translate(-50%, -50%) rotate(${Math.random()*360}deg)`;
-      d.style.borderRadius = Math.random() < .3 ? '50%' : '4px';
-      d.style.pointerEvents = 'none';
-      d.style.zIndex = 9999;
-      document.body.appendChild(d);
-      const ang = (Math.random()*Math.PI*2);
-      const spd = 2 + Math.random()*5;
-      const vx = Math.cos(ang)*spd;
-      const vy = Math.sin(ang)*spd;
-      let life = 0;
-      const tick = () => {
-        life += 1;
-        x += vx; y += vy + life*0.07;
-        d.style.left = x + 'px'; d.style.top = y + 'px';
-        d.style.opacity = 1 - life/180;
-        if (life < 180) requestAnimationFrame(tick); else d.remove();
-      };
-      tick();
-    };
-
-    if (params.get('bg') === 'dark') {
-      document.documentElement.style.setProperty('--bg-1', '#1a1b1e');
-      document.documentElement.style.setProperty('--bg-2', '#221b22');
-      document.documentElement.style.setProperty('--ink', '#f3f3f3');
-      document.documentElement.style.setProperty('--ink-soft', '#bdbdbd');
-    }
-
-    const galleryImages = $$('#gallery img');
-    const imageModal = $('#imageModal');
-    const modalImage = $('#modalImage');
-
-    galleryImages.forEach(img => {
-      img.onclick = () => {
-        modalImage.src = img.src;
-        imageModal.style.display = 'grid';
-      };
-    });
-
-    imageModal.onclick = () => {
-      imageModal.style.display = 'none';
-    };
   </script>
 </body>
 </html>
